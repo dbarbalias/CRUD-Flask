@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% if title %}
+<title>{{ title }}</title>
+{% else %}
+<title> CRUD </title>
+{% endif %}
+
+{% endblock head %}
+
+
+{% block body %}
+<br>
+<main role="main" class="container">
+    <div class="jumbotron">
+    <h3>Modify Task Taks</h3>
+    <form action="/modify/{{task.id}}" method="POST">
+        <input type="text" name="content", value="{{ task.content }}">
+        <input type="Submit" value="Modify Task">
+    </form>
+    </div>
+</main>
+{% endblock body %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+
+{% if title %}
+    <title>{{ title }}</title>
+{% else %}
+    <title> CRUD </title>
+{% endif %}
+{% endblock head %}
+
+   
+{% block body %}
+<br>
+<main role="main" class="container">
+    <div class="jumbotron">
+                <h3>{{date.month}}/{{date.day}}/{{date.year}}</h3>
+    {% for i in task_today %}
+            {% if i.status %}
+                <p>
+                    <strike style="color:red;"><span class='content' style="color:#563d7c;">{{ i.content }}</span></strike>
+                    <a style="text-decoration: none;"  class="btn-outline-dark" href="{{ url_for('status', id=i.id) }}"><button type="button" class="btn btn-outline-dark">Add to To-Do List</button></a>
+                    <a style="text-decoration: none;"  class="btn-outline-dark"  href="{{ url_for('modify', id=i.id) }}"><button type="button" class="btn btn-outline-dark">Update</button></a>   
+                </p>
+            {% else %}
+                <p>
+                    <span class='content'>{{ i.content }}</span>
+                   <a style="text-decoration: none;"  class="btn-outline-dark" href="{{ url_for('status', id=i.id) }}"><button type="button" class="btn btn-outline-dark">Mark as Finished</button></a>  
+                   <a style="text-decoration: none;"  class="btn-outline-dark"  href="{{ url_for('modify', id=i.id) }}"><button type="button" class="btn btn-outline-dark">Update</button></a>   
+                </p>
+            {% endif %}
+    {% endfor %}
+
+    <br>
+    <hr>
+    <h3>Unfinished Tasks</h3>
+    {% for i in task_unfinished %}
+    {% if i.status %}
+    <p>
+        <strike style="color:red;"><span class='content' style="color:#563d7c;">{{ i.content }}</span></strike>
+        <a style="text-decoration: none;"  class="btn-outline-dark" href="{{ url_for('status', id=i.id) }}"><button type="button" class="btn btn-outline-dark">Change Status</button></a>
+        <a style="text-decoration: none;"  class="btn-outline-dark"  href="{{ url_for('modify', id=i.id) }}"><button type="button" class="btn btn-outline-dark">Update</button></a>   
+    </p>
+{% else %}
+    <p>
+       <span class='content'>{{ i.content }}</span>
+       <a style="text-decoration: none;"  class="btn-outline-dark" href="{{ url_for('status', id=i.id) }}"><button type="button" class="btn btn-outline-dark">Change Status</button></a>  
+       <a style="text-decoration: none;"  class="btn-outline-dark"  href="{{ url_for('modify', id=i.id) }}"><button type="button" class="btn btn-outline-dark">Update</button></a>   
+    </p>
+{% endif %}
+    {% endfor %}
+
+
+</div>
+</main>
+{% endblock body %}
